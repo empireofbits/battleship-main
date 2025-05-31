@@ -134,16 +134,16 @@ export default function BattleshipGame() {
     }
   }, [params]);
 
-  const initializeGame = async (userId: string) => {
+  const initializeGame = async (walletAddress: string) => {
     try {
       const response = await fetch(
-        "https://backend1.empireofbits.fun/api/v1/games/battleship",
+        "http://127.0.0.1:3001/api/v1/games/battleship",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userId }),
+          body: JSON.stringify({ walletAddress }),
         }
       );
 
@@ -159,10 +159,11 @@ export default function BattleshipGame() {
 
   const recordGameResult = async (won: boolean) => {
     if (!userId) return;
+    const walletAddress = userId;
 
     try {
       const response = await fetch(
-        `https://backend1.empireofbits.fun/api/v1/games/battleship/${userId}/result`,
+        `http://127.0.0.1:3001/api/v1/games/battleship/${walletAddress}/result`,
         {
           method: "POST",
           headers: {
@@ -204,7 +205,7 @@ export default function BattleshipGame() {
       pointsEarned: pointsEarned.toString(),
     });
 
-    window.location.href = `https://www.empireofbits.fun/?${params.toString()}`;
+    window.location.href = `http://localhost:3000/?${params.toString()}`;
   };
 
   const playSound = (sound: HTMLAudioElement | null) => {
